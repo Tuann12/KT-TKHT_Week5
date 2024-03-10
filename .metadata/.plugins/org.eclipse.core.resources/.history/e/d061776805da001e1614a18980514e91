@@ -1,0 +1,5 @@
+package jdepend;
+
+public class SwingUi {
+
+}

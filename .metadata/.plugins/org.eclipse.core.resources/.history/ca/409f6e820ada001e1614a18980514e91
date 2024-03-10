@@ -1,0 +1,52 @@
+package jdepend;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import jdepend.xmlui.*;
+
+public class XmlUi {
+	public static void main(String[] args) throws IOException {
+		test("T:\\Tuan05\\Library-Assistant", "T:\\Tuan05\\tuan5\\src\\main\\resources\\report.xml", "be");
+    }
+
+	public static void test(String project, String reportXml, String classPrefix) throws IOException {
+		JDepend jdpXml = new JDepend(new PrintWriter("T:\\Tuan05\\tuan5\\src\\main\\resources\\report.xml"));
+		jdpXml.addDirectory("T:\\Tuan05\\Library-Assistant");
+		jdpXml.analyze();
+		System.out.println("DONE directory report.xml saved: ");
+		System.out.print(reportXml);
+		
+		runtime(reportXml, classPrefix);
+	}
+	
+	public static void runtime(String reportXml, String classPrefix) {
+		ProcessBuilder processBuilder = new ProcessBuilder();
+		
+        processBuilder.command("cmd.exe", "/c", "npm run jdepend-ui " + reportXml + " " + classPrefix);
+
+        try {
+
+            Process process = processBuilder.start();
+
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            int exitCode = process.waitFor();
+            System.out.println("\nExited with error code : " + exitCode);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+	}
+}

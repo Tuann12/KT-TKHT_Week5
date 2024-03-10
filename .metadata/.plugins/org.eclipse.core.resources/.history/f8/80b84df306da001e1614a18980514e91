@@ -1,0 +1,15 @@
+package jdepend;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import jdepend.xmlui.*;
+
+public class XmlUi {
+	public static void main(String[] args) throws IOException {
+		JDepend jdpXml = new JDepend(new PrintWriter("T:\\Tuan05\\tuan5\\src\\main\\resources\\report.xml"));
+		jdpXml.addDirectory("T:\\Tuan05\\Library-Assistant");
+		jdpXml.analyze();
+		System.out.println("DONE");
+	}
+}

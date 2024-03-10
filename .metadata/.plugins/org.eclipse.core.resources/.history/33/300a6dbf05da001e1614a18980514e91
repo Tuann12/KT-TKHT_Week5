@@ -1,0 +1,8 @@
+package jdepend;
+
+import jdepend.swingui.JDepend;
+
+public class SwingUi {
+	JDepend swing = new JDepend();
+	
+}
